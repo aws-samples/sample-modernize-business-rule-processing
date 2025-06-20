@@ -1,0 +1,6 @@
+pypdf
+boto3
+pyarrow
+requests
+aws_lambda_powertools
+pandas

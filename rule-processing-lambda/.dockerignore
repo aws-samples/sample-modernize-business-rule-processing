@@ -1,0 +1,7 @@
+.git
+.gitignore
+node_modules
+cdk.out
+*.pyc
+__pycache__
+.pytest_cache

@@ -1,0 +1,35 @@
+{
+    "car": {
+        "make": "Toyota",
+        "model": "Camry",
+        "year": 2018,
+        "style": "SPORTS",
+        "color": "RED"
+    },
+    "driver": {
+        "name": "John",
+        "age": 20
+    },
+    "policy": {
+        "id": "123",
+        "premium": 1000
+    }
+},
+
+{
+    "car": {
+        "make": "Make7",
+        "model": "Model11",
+        "year": 2015,
+        "style": "SEDAN",
+        "color": "BLUE"
+    },
+    "driver": {
+        "name": "Driver23",
+        "age": 64
+    },
+    "policy": {
+        "id": "POL0050",
+        "premium": 2434.0
+    }
+}

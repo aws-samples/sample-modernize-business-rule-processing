@@ -1,0 +1,21 @@
+# Ignore Maven build files except the target JAR
+target/*
+!target/*.jar
+
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore IDE files
+.idea/
+*.iml
+.vscode/
+*.sublime-*
+
+# Ignore logs
+*.log
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.swp

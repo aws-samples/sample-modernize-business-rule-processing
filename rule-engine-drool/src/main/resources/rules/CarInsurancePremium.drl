@@ -1,0 +1,52 @@
+package com.rule.test.ruletest
+import com.rule.test.ruletest.vo.Driver;
+import com.rule.test.ruletest.vo.Car;
+import com.rule.test.ruletest.vo.Policy;
+
+dialect "mvel"
+
+rule "High Risk SUV"
+ 	when
+ 		$car : Car(style == "suv", color == "blue")
+ 		$policy : Policy()
+ 		and $driver : Driver ( age < 21 )
+ 	then
+ 		System.out.println(drools.getRule().getName() +": rule fired");
+ 		modify ($policy) { setPremium(increasePremiumRate($policy, 20)) };
+ end
+
+ rule "Med Risk SUV"
+ 	when
+ 		$car : Car(style == "suv", color == "blue")
+ 		$policy : Policy()
+ 		and $driver : Driver ( age > 21 )
+ 	then
+ 		System.out.println(drools.getRule().getName() +": rule fired");
+ 		modify ($policy) { setPremium(increasePremiumRate($policy, 10)) };
+ end
+
+ rule "High Risk Sedan"
+  	when
+  		$car : Car(style == "sedan", color == "red")
+  		$policy : Policy()
+  		and $driver : Driver ( age < 30 )
+  	then
+  		System.out.println(drools.getRule().getName() +": rule fired");
+  		modify ($policy) { setPremium(increasePremiumRate($policy, 30)) };
+  end
+
+ rule "Med Risk Sedan"
+   	when
+   		$car : Car(style == "sedan", color == "red")
+   		$policy : Policy()
+   		and $driver : Driver ( age > 30 )
+   	then
+   		System.out.println(drools.getRule().getName() +": rule fired");
+   		modify ($policy) { setPremium(increasePremiumRate($policy, 15)) };
+   end
+
+
+ function double increasePremiumRate(Policy pol, double percentage) {
+    System.out.println("percentage is "+percentage);
+ 	return (pol.getPremium() + pol.getPremium() * percentage / 100);
+ }
