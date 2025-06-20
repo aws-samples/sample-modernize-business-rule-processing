@@ -99,11 +99,11 @@ Please note: Here we will be creating a SQL server environment for the Insurance
 7. To process new set of data run the [load-new-data.sql](scripts/sql-script/load-new-data.sql) in the InsuranceDB database of the SQL Server to load another 5K data and executee the Step function workflow again manually to observe that only the newly added data has been processed.
 8. After successful completion of the new data load, run the Step function workflow manually to see how the insurance premium calculation takes place for the new set of 5K records which got generated in the SQL server database.
 9. If you want to reset the job bookmark in order to allow the duplicate processing you can run the below AWS CLI command `aws glue reset-job-bookmark --job-name <sql-extract-job-name> --profile <aws-profile-name> --region <region-name>`
-
+10. The successful execution graph of the AWS Step Function State Machine looks like as below:
+![Successful execution graph of the AWS Step Function State Machine](images/stepfunctions_graph.jpg)
 ```markdown
 # What is happening under the hood
 1. When you execute the generated state machine workflow, successful completion of the entire workflow results in the graphical view shown below:
-![Step Function Execution All Data](images/step-function-execution-all-process.png)
   - Data extraction from multiple tables in SQL Server is performed using AWS Glue Jobs leveraging AWS Glue JDBC Connection. These Glue jobs (Extract Car Data, Extract Driver Data, Extract Policy Data and Extract Insurance Request Data) are configured as parallel states inside the state machine workflow to execute concurrently. The extracted data is stored in the AWS S3 bronze layer bucket with table_name/year/month/day partitioning.
   - We utilize the AWS Glue job bookmark feature based on primary keys from SQL Server source tables to extract only newly generated data. Job metrics containing the source table name, last extracted data id, extraction time are stored in an Amazon DynamoDB table to ensure only new data is processed by the downstream systems.
   - The "Evaluate Process Records" Choice state in the state machine determines whether new data has arrived. If new data is detected, the workflow initiates crawling of the bronze layer S3 bucket to create/update the AWS Glue Data Catalog.
@@ -118,6 +118,7 @@ Please note: Here we will be creating a SQL server environment for the Insurance
 
 1. Customize and fine tune this data processing workflow based on your use case
 2. The final data produced in the Gold layer bucket can be queried from the reporting application for displaying data in the generated reports.
+3. For this demo only four sample rules for premium calculation are configured for car color 'blue' and 'red'. So you will find the policy premium for these Cars are modified than their corresponding value in the SQL server database
 
 
 # Cleanup
