@@ -14,7 +14,7 @@ The project uses a car insurance system as an example case study. The legacy sys
 
 - A data processing application that:
   - Executes SQL jobs in the database
-  - Uses stored procedures with database links to fetch data from other databases into the InsuranceDB
+  - Uses stored procedures with database links to fetch data from InsuranceDB into the premium processing database
   - Implements business rules within stored procedures for premium calculations
   - Feeds calculated premiums to a reporting system for visualization
 
